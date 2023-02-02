@@ -490,7 +490,39 @@ func (m *Repository) AdminNewReservations(w http.ResponseWriter, r *http.Request
 }
 
 func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "admin-reservations-calender.page.tmpl", &models.TemplateData{})
+	now := time.Now()
+
+	if r.URL.Query().Get("y") != "" {
+		year, _ := strconv.Atoi(r.URL.Query().Get("y"))
+		month, _ := strconv.Atoi(r.URL.Query().Get("m"))
+		//1-day hours minutes seconds nano seconds -- these are the parameters that are built in package
+		now = time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
+	}
+
+	//number of years you wants to add is 0 no of month you wanna get is 1 because you wants go in next month
+	// and last 0 is for num of days you wants  to add
+	next := now.AddDate(0, 1, 0)
+	last := now.AddDate(0, -1, 0)
+
+	//this gives me two digit num of dates
+	nextMonth := next.Format("01")
+	nextMonthYear := next.Format("2006")
+
+	lastMonth := last.Format("01")
+	lastMonthYear := last.Format("2006")
+
+	stringMap := make(map[string]string)
+	stringMap["next_month"] = nextMonth
+	stringMap["next_month_year"] = nextMonthYear
+	stringMap["last_month"] = lastMonth
+	stringMap["last_month_year"] = lastMonthYear
+
+	stringMap["this_month"] = now.Format("01")
+	stringMap["this_month_year"] = now.Format("2006")
+
+	render.Template(w, r, "admin-reservations-calender.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 func (m *Repository) AdminShowReservations(w http.ResponseWriter, r *http.Request) {
 	exploded := strings.Split(r.RequestURI, "/")
@@ -577,6 +609,6 @@ func (m *Repository) DeleteReservation(w http.ResponseWriter, r *http.Request) {
 
 	_ = m.DB.DeleteReservation(id)
 
-	m.App.Session.Put(r.Context(), "error", "Deleted!!")
+	m.App.Session.Put(r.Context(), "error", "Deleted!")
 	http.Redirect(w, r, fmt.Sprintf("/admin/reservations-%s", src), http.StatusSeeOther)
 }
