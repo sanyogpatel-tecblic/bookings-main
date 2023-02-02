@@ -577,6 +577,6 @@ func (m *Repository) DeleteReservation(w http.ResponseWriter, r *http.Request) {
 
 	_ = m.DB.DeleteReservation(id)
 
-	m.App.Session.Put(r.Context(), "error", "Deleted!")
+	m.App.Session.Put(r.Context(), "error", "Deleted!!")
 	http.Redirect(w, r, fmt.Sprintf("/admin/reservations-%s", src), http.StatusSeeOther)
 }
