@@ -5,10 +5,11 @@
 {{end}}
 
 {{define "content"}}
+   {{ $now:= index .Data "now" }}
 <div class="col-md-12">
 
    <div class="text-center">
-       <h3>{{index .StringMap "this_month"}} {{index .StringMap "this_month_year"}}</h3>
+       <h3>{{formatdate $now "January"}} {{formatdate $now "2006"}}</h3>
    </div>
    <div class="container">
    <div class="float-sm-left">

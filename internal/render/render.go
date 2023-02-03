@@ -16,7 +16,8 @@ import (
 
 var functions = template.FuncMap{
 	//so whenever i use "humanDate" it points to HumanDate function which is declared downside
-	"humanDate": HumanDate,
+	"humanDate":  HumanDate,
+	"formatdate": Formatdate,
 }
 
 var app *config.AppConfig
@@ -28,6 +29,10 @@ func NewRenderer(a *config.AppConfig) {
 }
 func HumanDate(t time.Time) string {
 	return t.Format("2006-01-02")
+}
+
+func Formatdate(t time.Time, f string) string {
+	return t.Format(f)
 }
 
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {

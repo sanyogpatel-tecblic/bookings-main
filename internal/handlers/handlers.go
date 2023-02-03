@@ -174,7 +174,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 	reservation.Firstname = r.Form.Get("first_name")
-	reservation.Lastname = r.Form.Get("first_name")
+	reservation.Lastname = r.Form.Get("last_name")
 	reservation.Phone = r.Form.Get("phone")
 	reservation.Email = r.Form.Get("email")
 
@@ -500,7 +500,7 @@ func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Re
 	}
 
 	//number of years you wants to add is 0 no of month you wanna get is 1 because you wants go in next month
-	// and last 0 is for num of days you wants  to add
+	//and last 0 is for num of days you wants  to add
 	next := now.AddDate(0, 1, 0)
 	last := now.AddDate(0, -1, 0)
 
@@ -510,6 +510,9 @@ func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Re
 
 	lastMonth := last.Format("01")
 	lastMonthYear := last.Format("2006")
+
+	data := make(map[string]interface{})
+	data["now"] = now
 
 	stringMap := make(map[string]string)
 	stringMap["next_month"] = nextMonth
@@ -522,6 +525,7 @@ func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Re
 
 	render.Template(w, r, "admin-reservations-calender.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
+		Data:      data,
 	})
 }
 func (m *Repository) AdminShowReservations(w http.ResponseWriter, r *http.Request) {
