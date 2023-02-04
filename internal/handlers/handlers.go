@@ -597,7 +597,7 @@ func (m *Repository) AdminProcessReservation(w http.ResponseWriter, r *http.Requ
 
 	_ = m.DB.UpdateProcessedForReservation(id, 1)
 
-	m.App.Session.Put(r.Context(), "flash", "marked as processed successfully")
+	m.App.Session.Put(r.Context(), "flash", "marked as processed successfully!")
 	http.Redirect(w, r, fmt.Sprintf("/admin/reservations-%s", src), http.StatusSeeOther)
 
 }
