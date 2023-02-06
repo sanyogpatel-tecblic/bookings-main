@@ -59,7 +59,7 @@ func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.Te
 	}
 	t, ok := tc[tmpl]
 	if !ok {
-		return errors.New("could not get template from cache")
+		return errors.New("could not get the template from cache")
 	}
 
 	buf := new(bytes.Buffer)
@@ -70,7 +70,7 @@ func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.Te
 
 	_, err := buf.WriteTo(w)
 	if err != nil {
-		return errors.New("error writing tewmplate to browser")
+		return errors.New("error writing the template to browser")
 	}
 	return nil
 }
