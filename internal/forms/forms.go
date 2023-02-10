@@ -32,7 +32,6 @@ func (f *Form) Required(fields ...string) {
 		if strings.TrimSpace(value) == "" {
 			f.Errors.Add(field, "this field is required")
 		}
-
 	}
 }
 func (f *Form) MinLength(field string, length int) bool {
