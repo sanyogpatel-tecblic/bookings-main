@@ -299,7 +299,6 @@ func (m *Repository) AvailabilityJson(w http.ResponseWriter, r *http.Request) {
 
 // Availability renders the search availability page
 func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
-
 	render.Template(w, r, "search-availability.page.tmpl", &models.TemplateData{})
 }
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
