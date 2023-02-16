@@ -49,7 +49,7 @@ func (f *Form) MinLength2(length int, r *http.Request, fields ...string) {
 		fi := f.Get(fields)
 
 		if len(fi) < length {
-			f.Errors.Add(fields, fmt.Sprintf("minimum length criteria dosen't match %d", length))
+			f.Errors.Add(fields, fmt.Sprintf("minimum length criteria dosen not match %d", length))
 		}
 	}
 }
