@@ -58,7 +58,6 @@ func (m *postgressDBRepo) InsertRoomRestriction(r models.RoomRestriction) error 
 func (m *postgressDBRepo) SearchAvailabilityByDatesByRoomID(start, end time.Time, roomID int) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-
 	var numRows int
 
 	query := `
@@ -96,7 +95,6 @@ func (m *postgressDBRepo) SearchAvailabilityForAllRooms(start, end time.Time) ([
 	if err != nil {
 		return rooms, err
 	}
-
 	for rows.Next() {
 		var room models.Room
 
@@ -134,7 +132,6 @@ func (m *postgressDBRepo) GetRoomByID(id int) (models.Room, error) {
 	}
 	return room, nil
 }
-
 func (m *postgressDBRepo) GetUserByID(id int) (models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -157,9 +154,7 @@ func (m *postgressDBRepo) GetUserByID(id int) (models.User, error) {
 		return user, err
 	}
 	return user, nil
-
 }
-
 func (m *postgressDBRepo) UpdateUser(user models.User) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -296,11 +291,9 @@ func (m *postgressDBRepo) AllNewReservations() ([]models.Reservation, error) {
 		}
 		reservations = append(reservations, i)
 	}
-
 	if err = rows.Err(); err != nil {
 		return reservations, err
 	}
-
 	return reservations, nil
 }
 
@@ -366,6 +359,7 @@ func (m *postgressDBRepo) DeleteReservation(id int) error {
 	}
 	return nil
 }
+
 func (m *postgressDBRepo) UpdateProcessedForReservation(id int, processed int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
