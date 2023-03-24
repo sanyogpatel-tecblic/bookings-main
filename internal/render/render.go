@@ -18,10 +18,24 @@ var functions = template.FuncMap{
 	//so whenever i use "humanDate" it points to HumanDate function which is declared downside
 	"humanDate":  HumanDate,
 	"formatdate": Formatdate,
+	"add":        Add,
+	"iterate":    Iterate,
 }
 
 var app *config.AppConfig
 var pathToTemplates = "./templates"
+
+func Add(a, b int) int {
+	return a + b
+}
+func Iterate(count int) []int {
+	var i int
+	var items []int
+	for i = 0; i < count; i++ {
+		items = append(items, i)
+	}
+	return items
+}
 
 // NewTemplates sets the config for the template package
 func NewRenderer(a *config.AppConfig) {
